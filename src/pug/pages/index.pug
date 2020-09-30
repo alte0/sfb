@@ -1,0 +1,39 @@
+extends ../layout/main
+
+block variables
+  - var title = 'Webpack + Pug';
+  - var description = 'Description for Webpack + Pug';
+  - var pageClass = 'index-page';
+
+block content
+  section
+    .container
+      +item('item title', 'item descr')
+      +item('item title', 'item descr')
+      +item('item title', 'item descr hgu')
+    .container
+      +b.SVG.svg.--youtube(width="24" height="24")
+        use(xlink:href="#sprite-youtube")
+
+    .container
+      SPAN.open-button
+    .container
+      .bg
+
+    .container
+      +b.block1
+        +e.element1 Foo
+        +b.block2.--red
+          +e.A(href="#bar").element Bar
+        +e.element2 Baz
+
+
+
+
+block script
+  script.
+    const foo = true;
+    let bar = function() {};
+    if (foo) {
+    bar(1 + 5)
+    }

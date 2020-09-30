@@ -1,0 +1,55 @@
+{
+  "name": "sfb",
+  "version": "1.0.0",
+  "description": "Start frontend builder",
+  "private": true,
+  "scripts": {
+    "start": "npm run sfb:dev",
+    "sfb:dev": "npx webpack-dev-server --config ./webpack-config/webpack.dev.conf.js  --progress --colors",
+    "sfb:build": "webpack --config ./webpack-config/webpack.build.conf.js --progress --colors"
+  },
+  "browserslist": "last 4 versions, Firefox ESR, not ie <= 10",
+  "author": "https://github.com/alte0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alte0/sfb.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alte0/sfb/issues"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "autoprefixer": "^10.0.0",
+    "babel-loader": "^8.1.0",
+    "beautify-html-webpack-plugin": "^1.0.3",
+    "bemto.pug": "git+https://github.com/alte0/bemto.git",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^6.1.1",
+    "css-loader": "^4.3.0",
+    "css-mqpacker": "^7.0.0",
+    "cssnano": "^4.1.10",
+    "favicons-webpack-plugin": "^4.2.0",
+    "file-loader": "^6.1.0",
+    "html-webpack-plugin": "^4.5.0",
+    "mini-css-extract-plugin": "^0.11.2",
+    "node-sass": "^4.14.1",
+    "postcss": "^8.0.8",
+    "postcss-loader": "^4.0.2",
+    "pug": "^3.0.0",
+    "pug-loader": "^2.4.0",
+    "sass-loader": "^10.0.2",
+    "style-loader": "^1.2.1",
+    "svg-spritemap-webpack-plugin": "^3.5.10",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-html-validate-plugin": "git+https://github.com/alte0/webpack-html-validate-plugin.git",
+    "webpack-merge": "^5.1.4",
+    "webpack-spritesmith": "^1.1.0"
+  },
+  "dependencies": {
+    "@csstools/normalize.css": "^11.0.1",
+    "svg4everybody": "^2.1.9"
+  }
+}

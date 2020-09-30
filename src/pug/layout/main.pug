@@ -1,0 +1,31 @@
+include ../utils/mixins
+include ../../../node_modules/bemto.pug/bemto_webpack
+-
+  set_bemto_settings({
+    prefix: '',
+    element: '__',
+    modifier: '--'
+  })
+- const svgInline = compilation.assets['spritemap.svg'].source()
+
+block variables
+
+doctype html
+html(lang='ru')
+  head
+    meta(charset='utf-8')
+    title #{title}
+    meta(name="description", content=description)
+    block head
+
+  body(class=pageClass)
+    .svg-inline
+      != svgInline
+    .wrapper
+      #app
+        include ../includes/modules/header
+        .content-wrapper
+          block content
+        include ../includes/modules/footer
+
+    block script
