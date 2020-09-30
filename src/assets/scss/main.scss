@@ -5,11 +5,6 @@
 // @import "utils/reset";
 @import "sprite/sprite";
 
-.open-button {
-  display: inline-block;
-  @include sprite($example-1);
-}
-
 html {
   line-height: $mainLineHeight;
   font-size: $mainFontSize;
