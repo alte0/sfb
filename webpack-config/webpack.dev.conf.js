@@ -2,7 +2,6 @@ const webpack =  require('webpack')
 const { merge } = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   // DEV config
@@ -19,7 +18,6 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     }
   },
   plugins: [
-  new CleanWebpackPlugin(),
     new webpack.SourceMapDevToolPlugin({
       filename: '[file].map'
     }),

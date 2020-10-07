@@ -6,7 +6,8 @@
   "scripts": {
     "start": "npm run sfb:dev",
     "sfb:dev": "npx webpack-dev-server --config ./webpack-config/webpack.dev.conf.js  --progress --colors",
-    "sfb:build": "webpack --config ./webpack-config/webpack.build.conf.js --progress --colors"
+    "sfb:build": "npx webpack --config ./webpack-config/webpack.build.conf.js --progress --colors",
+    "sfb:deploy": "npx gulp deploy"
   },
   "browserslist": "last 4 versions, Firefox ESR, not ie <= 10",
   "author": "https://github.com/alte0",
@@ -29,9 +30,23 @@
     "css-loader": "^4.3.0",
     "css-mqpacker": "^7.0.0",
     "cssnano": "^4.1.10",
+    "eslint": "^7.10.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
     "favicons-webpack-plugin": "^4.2.0",
     "file-loader": "^6.1.0",
+    "gulp": "^4.0.2",
+    "gulp4-gh-pages": "^0.6.0-6",
     "html-webpack-plugin": "^4.5.0",
+    "imagemin-gifsicle": "6.0.1",
+    "imagemin-mozjpeg": "^9.0.0",
+    "imagemin-pngquant": "^9.0.1",
+    "imagemin-svgo": "^8.0.0",
+    "imagemin-webpack": "^5.1.1",
     "mini-css-extract-plugin": "^0.11.2",
     "node-sass": "^4.14.1",
     "postcss": "^8.0.8",
@@ -50,6 +65,7 @@
   },
   "dependencies": {
     "@csstools/normalize.css": "^11.0.1",
-    "svg4everybody": "^2.1.9"
+    "svg4everybody": "^2.1.9",
+    "swiper": "^6.3.2"
   }
 }

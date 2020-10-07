@@ -5,8 +5,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const BeautifyHtmlWebpackPlugin = require('beautify-html-webpack-plugin')
 const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin')
-const SpritesmithPlugin = require('webpack-spritesmith')
-const WebpackHtmlValidatePlugin = require('webpack-html-validate')
+// const SpritesmithPlugin = require('webpack-spritesmith')
+const WebpackHtmlValidatePlugin = require('webpack-html-validate-plugin')
+const ImageminPlugin = require("imagemin-webpack")
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 // Main const
 // see more: /README.md#main-const
@@ -46,30 +48,33 @@ module.exports = {
     }
   },
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.pug$/,
         loader: 'pug-loader'
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: '/node_modules/'
+        exclude: '/node_modules/',
+        // loader: 'babel-loader',
+        use: [
+          'babel-loader',
+          'eslint-loader'
+        ]
       },
-      {
-        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]'
-        }
-      },
-      {
-        test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]'
-        }
-      },
+      // {
+      //   test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+      //   loader: 'file-loader',
+      //   options: {
+      //     name: '[name].[ext]'
+      //   }
+      // },
+      // {
+      //   test: /\.(png|jpg|gif|svg)$/,
+      //   loader: 'file-loader',
+      //   options: {
+      //     name: '[name].[ext]'
+      //   }
+      // },
       {
         test: /\.scss$/,
         use: [
@@ -108,7 +113,8 @@ module.exports = {
         ]
       },
       {
-        test: /\.png$/,
+        // test: /\.png$/,
+        test: /sprites-png(\/|\\).+\.png$/,
         use: [
           'file-loader?name=i/[hash].[ext]'
         ]
@@ -122,20 +128,29 @@ module.exports = {
     modules: ["node_modules", "spritesmith-generated"]
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: `${PATHS.assets}css/style.[hash].css`,
     }),
-    new CopyWebpackPlugin(
-      {
-        patterns: [
-          { from: `${PATHS.src}/${PATHS.assets}img`, to: `${PATHS.assets}img` },
-          { from: `${PATHS.src}/${PATHS.assets}fonts`, to: `${PATHS.assets}fonts` },
-          { from: `${PATHS.src}/static`, to: '' },
-        ]
-      }
-      ),
-      // only until new HtmlWebpackPlugin
-    new SVGSpritemapPlugin(`${PATHS.src}/inline-svg/**/*.svg`),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: `${PATHS.src}/${PATHS.assets}img`, to: `${PATHS.assets}img` },
+        { from: `${PATHS.src}/${PATHS.assets}fonts`, to: `${PATHS.assets}fonts` },
+        { from: `${PATHS.src}/static`, to: '' },
+      ]
+    }),
+    // only until new HtmlWebpackPlugin
+    new SVGSpritemapPlugin(
+      `${PATHS.src}/inline-svg/**/*.svg`, {
+        output: {
+          svgo: true
+        },
+        sprite: {
+          generate: {
+            title: false
+          }
+        }
+      }),
     // Automatic creation any html pages (Don't forget to RERUN dev server)
     // see more: README.md#create-another-html-files
     // best way to create pages: README.md#third-method-best
@@ -164,23 +179,19 @@ module.exports = {
       "e4x": true,
       "indent_empty_lines": false
     }),
-    new SpritesmithPlugin({
-      src: {
-        // cwd: path.resolve(__dirname, 'src/ico'),
-        cwd: `${PATHS.src}/sprites-png`,
-        glob: '*.png'
-      },
-      target: {
-        // image: path.resolve(__dirname, 'src/spritesmith-generated/sprite.png'),
-        image: `${PATHS.dist}/assets/sprite/sprite.png`,
-        // css: path.resolve(__dirname, 'src/spritesmith-generated/sprite.styl')
-        css: `${PATHS.src}/assets/scss/sprite/sprite.scss`
-      },
-      apiOptions: {
-        // cssImageRef: "~sprite.png"
-        cssImageRef: '../sprite/sprite.png'
-      }
-    }),
+    // new SpritesmithPlugin({
+    //   src: {
+    //     cwd: `${PATHS.src}/sprites-png`,
+    //     glob: '*.png'
+    //   },
+    //   target: {
+    //     image: `${PATHS.dist}/assets/sprite/sprite.png`,
+    //     css: `${PATHS.src}/assets/scss/sprite/sprite.scss`
+    //   },
+    //   apiOptions: {
+    //     cssImageRef: '../sprite/sprite.png'
+    //   }
+    // }),
     new WebpackHtmlValidatePlugin()
   ],
 }

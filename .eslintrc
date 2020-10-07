@@ -1,0 +1,17 @@
+{
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "extends": [
+    "standard",
+    "plugin:promise/recommended"
+  ],
+  "plugins": [],
+  "rules": {
+    "semi": [
+      "error",
+      "always"
+    ]
+  }
+}
