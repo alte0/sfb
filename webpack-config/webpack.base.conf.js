@@ -5,10 +5,11 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const BeautifyHtmlWebpackPlugin = require('beautify-html-webpack-plugin')
 const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin')
-// const SpritesmithPlugin = require('webpack-spritesmith')
+const SpritesmithPlugin = require('webpack-spritesmith')
 const WebpackHtmlValidatePlugin = require('webpack-html-validate-plugin')
 const ImageminPlugin = require("imagemin-webpack")
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const StylelintPlugin = require('stylelint-webpack-plugin')
 
 // Main const
 // see more: /README.md#main-const
@@ -179,19 +180,20 @@ module.exports = {
       "e4x": true,
       "indent_empty_lines": false
     }),
-    // new SpritesmithPlugin({
-    //   src: {
-    //     cwd: `${PATHS.src}/sprites-png`,
-    //     glob: '*.png'
-    //   },
-    //   target: {
-    //     image: `${PATHS.dist}/assets/sprite/sprite.png`,
-    //     css: `${PATHS.src}/assets/scss/sprite/sprite.scss`
-    //   },
-    //   apiOptions: {
-    //     cssImageRef: '../sprite/sprite.png'
-    //   }
-    // }),
-    new WebpackHtmlValidatePlugin()
+    new SpritesmithPlugin({
+      src: {
+        cwd: `${PATHS.src}/sprites-png`,
+        glob: '*.png'
+      },
+      target: {
+        image: `${PATHS.dist}/assets/sprite/sprite.png`,
+        css: `${PATHS.src}/assets/scss/sprite/sprite.scss`
+      },
+      apiOptions: {
+        cssImageRef: '../sprite/sprite.png'
+      }
+    }),
+    new WebpackHtmlValidatePlugin(),
+    new StylelintPlugin()
   ],
 }
